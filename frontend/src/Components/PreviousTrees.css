@@ -1,0 +1,97 @@
+/* PreviousTrees.css */
+.tree-container {
+    border: 1px solid #ddd;
+    padding: 20px;
+    margin: 20px auto;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    max-width: 80%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
+  }
+  
+  .tree-container:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  }
+  
+  .tree-node {
+    text-align: center;
+    margin: 10px;
+  }
+  
+  .node-value {
+    font-size: 20px;
+    font-weight: bold;
+    padding: 10px;
+    border: 2px solid #333;
+    border-radius: 5px;
+    display: inline-block;
+    margin-bottom: 10px;
+    background-color: #fff;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  
+  .node-value:hover {
+    background-color: #e0e0e0;
+    transform: scale(1.05);
+  }
+  
+  .tree-children {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap; /* Allows wrapping for smaller screens */
+  }
+  
+  .tree-left, .tree-right {
+    margin: 0 20px;
+    flex: 1; /* Allows flexible resizing */
+    min-width: 100px; /* Minimum size for smaller screens */
+  }
+  
+  .back-button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin-top: 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  
+  .back-button:hover {
+    background-color: #45a049;
+    transform: translateY(-2px);
+  }
+  
+  .back-button:active {
+    background-color: #3e8e41;
+    transform: translateY(1px);
+  }
+  
+  /* Responsive styles */
+  @media (max-width: 768px) {
+    .tree-container {
+      max-width: 95%;
+      padding: 15px;
+    }
+  
+    .tree-left, .tree-right {
+      margin: 10px 5px;
+    }
+  
+    .node-value {
+      font-size: 18px;
+      padding: 8px;
+    }
+  
+    .back-button {
+      padding: 12px 24px;
+      font-size: 14px;
+    }
+  }
+  

@@ -1,0 +1,124 @@
+/* TreeVisualization.css */
+
+/* Container for the tree visualization */
+.tree-container {
+    text-align: center;
+    margin: 20px;
+  }
+  
+  /* Header for the tree visualization */
+  .tree-container h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #007bff;
+  }
+  
+  /* Styling for each tree node */
+  .tree-node {
+    display: inline-block;
+    padding: 15px;
+    margin: 10px;
+    background-color: #f1f9ff;
+    border: 2px solid #007bff;
+    border-radius: 8px;
+    color: #333;
+    font-size: 18px;
+    text-align: center;
+    position: relative;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+  }
+  
+  .tree-node:hover {
+    background-color: #e0f3ff;
+    transform: scale(1.05);
+  }
+  
+  /* Styling for the tree branches */
+  .tree-branch {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    position: relative;
+  }
+  
+  .tree-branch::before {
+    content: '';
+    width: 2px;
+    height: 30px;
+    background-color: #007bff;
+    position: absolute;
+    left: 50%;
+    top: -30px;
+  }
+  
+  /* Responsive design for smaller screens */
+  @media (max-width: 600px) {
+    .tree-node {
+      padding: 10px;
+      font-size: 14px;
+      margin: 5px;
+    }
+  
+    .tree-branch::before {
+      height: 20px;
+    }
+  
+    .tree-container h2 {
+      font-size: 20px;
+    }
+  }
+  
+  /* Styling for the back button */
+  .back-button {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-top: 20px;
+    background-color: #dc3545; /* Red background */
+    color: white; /* White text */
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+  }
+  
+  .back-button:hover {
+    background-color: #c82333; /* Darker red on hover */
+    transform: scale(1.05);
+  }
+  
+  .back-button:active {
+    background-color: #bd2130; /* Even darker red on click */
+    transform: scale(0.95);
+  }
+  
+  /* Connectors between parent and child nodes */
+  .tree-branch::after {
+    content: '';
+    width: 2px;
+    height: 30px;
+    background-color: #007bff;
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+  .tree-left::after,
+  .tree-right::after {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 2px;
+    background-color: #007bff;
+    top: -10px;
+  }
+  
+  .tree-left::after {
+    left: -20px;
+  }
+  
+  .tree-right::after {
+    right: -20px;
+  }
+  
