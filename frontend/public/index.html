@@ -1,43 +1,118 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
-    <meta
-      name="description"
-      content="Web site created using create-react-app"
-    />
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-    <!--
-      manifest.json provides metadata used when your web app is installed on a
-      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
-    -->
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <!--
-      Notice the use of %PUBLIC_URL% in the tags above.
-      It will be replaced with the URL of the `public` folder during the build.
-      Only files inside the `public` folder can be referenced from the HTML.
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Binary Search Tree Visualization</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <div id="app">
+        <h1>Binary Search Tree Visualization</h1>
+        <div id="enter-numbers">
+            <h2>Enter Numbers</h2>
+            <input type="text" id="numbers-input" placeholder="Enter numbers separated by commas">
+            <button id="submit-button">Submit</button>
+            <button id="previous-trees-button">View Previous Trees</button>
+        </div>
+        <div id="tree-visualization" style="display: none;">
+            <h2>Tree Visualization</h2>
+            <div id="tree-container"></div>
+            <button id="new-numbers-button">Enter New Numbers</button>
+        </div>
+        <div id="previous-trees" style="display: none;">
+            <h2>Previous Trees</h2>
+            <div id="previous-trees-container"></div>
+            <button id="back-button">Back to Enter Numbers</button>
+        </div>
+    </div>
+    <script>
+        const treeContainer = document.getElementById('tree-container');
+        const previousTreesContainer = document.getElementById('previous-trees-container');
 
-      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
-      work correctly both with client-side routing and a non-root public URL.
-      Learn how to configure a non-root public URL by running `npm run build`.
-    -->
-    <title>React App</title>
-  </head>
-  <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
+        // Helper function to render the tree
+        function renderTree(node) {
+            if (!node) return '';
+            return `
+                <div class="tree-node">
+                    <div>${node.value}</div>
+                    <div class="tree-branch">
+                        <div>${renderTree(node.left)}</div>
+                        <div>${renderTree(node.right)}</div>
+                    </div>
+                </div>
+            `;
+        }
 
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
+        // Function to handle the Submit button click
+        document.getElementById('submit-button').addEventListener('click', function() {
+            const numbers = document.getElementById('numbers-input').value;
+            const numbersArray = numbers.split(',').map(Number).filter(n => !isNaN(n));
+            if (numbersArray.length === 0) {
+                alert('Please enter valid numbers');
+                return;
+            }
 
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
-  </body>
+            const treeStructure = createBinarySearchTree(numbersArray);
+            treeContainer.innerHTML = renderTree(treeStructure);
+            saveTreeToLocalStorage(treeStructure);
+
+            // Switch to the tree visualization view
+            document.getElementById('enter-numbers').style.display = 'none';
+            document.getElementById('tree-visualization').style.display = 'block';
+        });
+
+        // Function to create a Binary Search Tree
+        function createBinarySearchTree(numbers) {
+            function insertNode(root, value) {
+                if (!root) return { value, left: null, right: null };
+                if (value < root.value) root.left = insertNode(root.left, value);
+                else root.right = insertNode(root.right, value);
+                return root;
+            }
+
+            let root = null;
+            numbers.forEach(num => root = insertNode(root, num));
+            return root;
+        }
+
+        // Function to handle the Enter New Numbers button click
+        document.getElementById('new-numbers-button').addEventListener('click', function() {
+            // Switch back to the enter numbers view
+            document.getElementById('enter-numbers').style.display = 'block';
+            document.getElementById('tree-visualization').style.display = 'none';
+            document.getElementById('numbers-input').value = '';
+        });
+
+        // Function to handle the View Previous Trees button click
+        document.getElementById('previous-trees-button').addEventListener('click', function() {
+            // Switch to the previous trees view
+            document.getElementById('enter-numbers').style.display = 'none';
+            document.getElementById('previous-trees').style.display = 'block';
+
+            // Load previous trees from local storage
+            const previousTrees = JSON.parse(localStorage.getItem('previousTrees')) || [];
+            previousTreesContainer.innerHTML = previousTrees.map((tree, index) => `
+                <div class="tree-container">
+                    <h3>Tree ${index + 1}</h3>
+                    ${renderTree(tree)}
+                </div>
+            `).join('');
+        });
+
+        // Function to handle the Back button click
+        document.getElementById('back-button').addEventListener('click', function() {
+            // Switch back to the enter numbers view
+            document.getElementById('previous-trees').style.display = 'none';
+            document.getElementById('enter-numbers').style.display = 'block';
+        });
+
+        // Save the tree structure to local storage
+        function saveTreeToLocalStorage(treeStructure) {
+            const previousTrees = JSON.parse(localStorage.getItem('previousTrees')) || [];
+            previousTrees.push(treeStructure);
+            localStorage.setItem('previousTrees', JSON.stringify(previousTrees));
+        }
+    </script>
+</body>
 </html>
