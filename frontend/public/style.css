@@ -1,1 +1,89 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #e0f7fa;
+}
+
+#app {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+h1, h2 {
+    color: #00796b;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    box-sizing: border-box;
+    border: 2px solid #00796b;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+button {
+    padding: 10px 20px;
+    margin-top: 20px;
+    background-color: #00796b;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: inline-block;
+    margin-right: 10px;
+}
+
+button:hover {
+    background-color: #004d40;
+}
+
+button:active {
+    background-color: #00251a;
+}
+
+#tree-container, #previous-trees-container {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.tree-node {
+    display: inline-block;
+    padding: 10px;
+    margin: 10px;
+    background-color: #e0f2f1;
+    border: 2px solid #00796b;
+    border-radius: 8px;
+    color: #004d40;
+    font-size: 16px;
+    text-align: center;
+    position: relative;
+}
+
+.tree-branch {
+    display: flex;
+    justify-content: center;
+}
+
+.tree-branch::before {
+    content: '';
+    width: 2px;
+    height: 20px;
+    background-color: #00796b;
+    position: absolute;
+    left: 50%;
+    top: 0;
+}
 
